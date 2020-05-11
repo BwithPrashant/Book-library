@@ -8,6 +8,41 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+var (
+	GetAPI = map[string]map[string]http.HandlerFunc{
+		"/books": map[string]http.HandlerFunc{
+			http.MethodGet: nil,
+		},
+		"/books/{id}": map[string]http.HandlerFunc{
+			http.MethodGet: nil,
+		},
+		"/swagger": map[string]http.HandlerFunc{
+			http.MethodGet: nil,
+		},
+		"/health": map[string]http.HandlerFunc{
+			http.MethodGet: welcome,
+		},
+	}
+
+	PostAPI = map[string]map[string]http.HandlerFunc{
+		"/books": map[string]http.HandlerFunc{
+			http.MethodPost: nil,
+		},
+	}
+
+	PutAPI = map[string]map[string]http.HandlerFunc{
+		"/books": map[string]http.HandlerFunc{
+			http.MethodPut: nil,
+		},
+	}
+
+	DeleteAPI = map[string]map[string]http.HandlerFunc{
+		"/books": map[string]http.HandlerFunc{
+			http.MethodDelete: nil,
+		},
+	}
+)
+
 func welcome(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome")
 }
@@ -17,6 +52,11 @@ func getMuxRouter() (*mux.Router, error) {
 		return nil, fmt.Errorf("Error in creating new mux router instance")
 	}
 
+	for route, routeMethodHandlerMap := range GetAPI {
+		for method, handler := range routeMethodHandlerMap {
+			router.HandleFunc(route, handler).Methods(method)
+		}
+	}
 	return router, nil
 }
 func StartAPIServer(server Server) error {
