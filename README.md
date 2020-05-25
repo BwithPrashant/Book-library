@@ -32,8 +32,9 @@ This is a golang project which exposes Rest API's for book management in a libra
   
  # DB
    - DB name : Postgres
-   - Schema
-      ```
+ # DBSchema
+ 
+ ```javascript
 postgres=# \d book_library.*
            Table "book_library.books"
  Column  | Type | Collation | Nullable | Default 
@@ -58,4 +59,4 @@ Index "book_library.books_pkey"
 --------+------+------------
  id     | uuid | id
 primary key, btree, for table "book_library.books"
-```
+````
