@@ -9,34 +9,34 @@ import (
 var (
 	GetAPI = map[string]map[string]http.HandlerFunc{
 		"/books": map[string]http.HandlerFunc{
-			http.MethodGet: getBooks,
+			http.MethodGet: GetBooks,
 		},
 		"/books/{id}": map[string]http.HandlerFunc{
-			http.MethodGet: getBookByID,
+			http.MethodGet: GetBookByID,
 		},
 		"/swagger": map[string]http.HandlerFunc{
-			http.MethodGet: getSwagger,
+			http.MethodGet: GetSwagger,
 		},
 		"/health": map[string]http.HandlerFunc{
-			http.MethodGet: health,
+			http.MethodGet: Health,
 		},
 	}
 
 	PostAPI = map[string]map[string]http.HandlerFunc{
 		"/books": map[string]http.HandlerFunc{
-			http.MethodPost: addBooks,
+			http.MethodPost: AddBooks,
 		},
 	}
 
 	PutAPI = map[string]map[string]http.HandlerFunc{
-		"/books": map[string]http.HandlerFunc{
-			http.MethodPut: updateBooks,
+		"/books/{id}": map[string]http.HandlerFunc{
+			http.MethodPut: UpdateBooks,
 		},
 	}
 
 	DeleteAPI = map[string]map[string]http.HandlerFunc{
-		"/books": map[string]http.HandlerFunc{
-			http.MethodDelete: deleteBooks,
+		"/books/{id}": map[string]http.HandlerFunc{
+			http.MethodDelete: DeleteBooks,
 		},
 	}
 )
