@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func getSwagger(w http.ResponseWriter, r *http.Request) {
+func GetSwagger(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome")
 }

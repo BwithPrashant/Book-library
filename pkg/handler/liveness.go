@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func health(w http.ResponseWriter, r *http.Request) {
+func Health(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Health")
 }
