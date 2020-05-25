@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -46,10 +47,17 @@ func GetMuxRouter(server *Server) error {
 
 func StartAPIServer(server Server) error {
 	log.Infof("API server is starting at %s:%s\n", server.HostName, server.Port)
-	err := http.ListenAndServe(fmt.Sprintf("%s:%s", server.HostName, server.Port), nil)
+	err := http.ListenAndServe(fmt.Sprintf("%s:%s", server.HostName, server.Port), trimSlashMiddleware(server.MuxRouter))
 	if err != nil {
 		log.Fatal(fmt.Sprintf("%s", "Error in starting api server. Error : %v\n", err))
 		return err
 	}
 	return nil
+}
+
+func trimSlashMiddleware(next http.Handler) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
+		next.ServeHTTP(w, r)
+	})
 }
